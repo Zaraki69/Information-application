@@ -1,0 +1,39 @@
+
+services:
+  frontend:
+    image: frontend:v1
+    container_name: frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+  backend:
+    image: backend/v1:latest
+    container_name: backend
+    ports:
+      - "8082:8082"
+    environment:
+      - DB_HOST=db
+      - DB_USER=shubham
+      - DB_PASSWORD=shubham
+      - DB_NAME=contactsdb
+    depends_on:
+      db: 
+        condition: service_healthy           
+      
+  db:
+    image: postgres:alpine
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=shubham
+      - POSTGRES_PASSWORD=shubham
+      - POSTGRES_DB=contactsdb  
+    volumes:
+      - ./db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shubham -d contactsdb"]
+      interval: 3s
+      timeout: 3s
+      retries: 5

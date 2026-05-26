@@ -1,5 +1,6 @@
 // Replace this with your Azure App Service backend URL after deployment
-const API_URL = "https://<YOUR-BACKEND-APP>.azurewebsites.net";
+console.log("Script.js loaded successfully!");
+const API_URL = "http://localhost:8082";
 
 async function saveContact() {
   const name  = document.getElementById("name").value.trim();

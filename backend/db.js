@@ -7,7 +7,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   user:     process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  ssl: { rejectUnauthorized: false }, // Required for Azure PostgreSQL
+  ssl: false
 });
 
 // Create the contacts table if it doesn't exist
